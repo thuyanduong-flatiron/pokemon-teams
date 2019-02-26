@@ -4,21 +4,16 @@ class PokemonsController < ApplicationController
   def create
     unless pokemon_params[:trainer_id].nil?
       default = {}
-
-      if Trainer.find(pokemon_params[:trainer_id]).pokemons.count < 6
-        if pokemon_params[:nickname].nil?
-          default[:nickname] = Faker::Name.first_name
-        end
-
-        if pokemon_params[:species].nil?
-          default[:species] = Faker::Pokemon.name
-        end
-
-        @pokemon = Pokemon.create(pokemon_params.merge(default))
-        render json: @pokemon, status: 201
-      else
-        render json: { error: "Party is Full!"}, status: 403
+      if pokemon_params[:nickname].nil?
+        default[:nickname] = Faker::Name.first_name
       end
+
+      if pokemon_params[:species].nil?
+        default[:species] = Faker::Pokemon.name
+      end
+
+      @pokemon = Pokemon.create(pokemon_params.merge(default))
+      render json: @pokemon, status: 201
     else
       render json: { error: "Trainer not found"}, status: 404
     end

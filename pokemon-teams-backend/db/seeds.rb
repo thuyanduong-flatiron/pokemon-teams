@@ -13,14 +13,9 @@ Trainer.delete_all
 Pokemon.delete_all
 
 trainers_name = [
-  'Prince',
-  'Dick',
-  'Garry',
-  'Jason',
-  'Matt',
-  'Noah',
-  'Adam',
-  'Arthur'
+  'Ann',
+  'Jake',
+  'Melanie'
 ]
 
 trainer_collection = []
@@ -30,7 +25,7 @@ trainers_name.each do |name|
 end
 
 trainer_collection.each do |trainer|
-  team_size = (SecureRandom.random_number(6) + 1).floor
+  team_size = 2
 
   (1..team_size).each do |poke|
     name = Faker::Name.first_name
