@@ -1,11 +1,12 @@
 //solution goes here
-let trainerContainer
-
 document.addEventListener("DOMContentLoaded", init)
 
 function init() {
-  trainerContainer = document.querySelector('main')
   getAllTrainers()
+}
+
+function getTrainerContainer() {
+  return document.querySelector('main')
 }
 
 function getAllTrainers() {
@@ -17,6 +18,8 @@ function getAllTrainers() {
 }
 
 function renderTrainer(trainerObj) {
+  let trainerContainer = getTrainerContainer()
+
   let div = document.createElement('div')
   trainerContainer.appendChild(div)
   div.classList.add('card')
@@ -35,24 +38,30 @@ function renderTrainer(trainerObj) {
   ul.id = 'trainer-' + trainerObj.id
   div.appendChild(ul)
 
-  trainerObj["pokemons"].forEach(function (pokemon) {
-    let li = document.createElement("li")
-    li.id = 'pokemon-' + pokemon.id
-    ul.appendChild(li)
-    let releaseButton = document.createElement('button')
-    releaseButton.classList.add("release")
-    releaseButton.innerText = "Release"
-    li.innerText = `${pokemon["nickname"]} (${pokemon["species"]})`
-    li.appendChild(releaseButton)
-    releaseButton.dataset.id = pokemon.id
-    releaseButton.addEventListener('click', handleClickOfReleaseButton)
-  })
+  trainerObj["pokemons"].forEach(renderPokemon)
+}
+
+function renderPokemon(pokemonObj) {
+  let li = document.createElement('li')
+  li.id = 'pokemon-' + pokemonObj.id
+  document.querySelector(`#trainer-${pokemonObj.trainer_id}`).appendChild(li)
+  li.innerText = `${pokemonObj["nickname"]} (${pokemonObj["species"]})`
+
+  let releaseButton = document.createElement('button')
+  releaseButton.classList.add("release")
+  releaseButton.innerText = "Release"
+  li.appendChild(releaseButton)
+  releaseButton.dataset.id = pokemonObj.id
+  releaseButton.addEventListener('click', handleClickOfReleaseButton)
 }
 
 function handleClickOfAddPokemonButton(event) {
   let trainerId = event.currentTarget.dataset.id
+  postNewPokemon(trainerId)
+}
+
+function postNewPokemon(trainerId) {
   if (document.querySelector(`#trainer-${trainerId}`).children.length < 6) {
-    debugger
     let postData = {
       trainer_id: trainerId
     }
@@ -63,18 +72,7 @@ function handleClickOfAddPokemonButton(event) {
         "Content-Type": "application/json"
       }
     }).then(res => res.json())
-      .then(pokemonObj => {
-        let li = document.createElement('li')
-        li.id = 'pokemon-' + pokemonObj.id
-        document.querySelector(`#trainer-${trainerId}`).appendChild(li)
-        let releaseButton = document.createElement('button')
-        releaseButton.classList.add("release")
-        releaseButton.innerText = "Release"
-        li.innerText = `${pokemonObj["nickname"]} (${pokemonObj["species"]})`
-        li.appendChild(releaseButton)
-        releaseButton.dataset.id = pokemonObj.id
-        releaseButton.addEventListener('click', handleClickOfReleaseButton)
-      })
+      .then(pokemon => renderPokemon(pokemon))
   } else {
     alert("Your team is full! If you want to add a new Pokemon, you must release an old one.")
   }
