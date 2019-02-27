@@ -29,7 +29,7 @@ function renderTrainer(trainerObj) {
   div.appendChild(addPokemonButton)
   addPokemonButton.innerText = "Add Pokemon"
   addPokemonButton.dataset.id = trainerObj.id
-  addPokemonButton.addEventListener("click", function() {handleClickOfAddPokemonButton(event, trainerObj)})
+  addPokemonButton.addEventListener("click", handleClickOfAddPokemonButton)
 
   let ul = document.createElement('ul')
   ul.id = 'trainer-' + trainerObj.id
@@ -49,9 +49,10 @@ function renderTrainer(trainerObj) {
   })
 }
 
-function handleClickOfAddPokemonButton(event, trainerObj) {
+function handleClickOfAddPokemonButton(event) {
   let trainerId = event.currentTarget.dataset.id
-  if (trainerObj["pokemons"].length < 6) {
+  if (document.querySelector(`#trainer-${trainerId}`).children.length < 6) {
+    debugger
     let postData = {
       trainer_id: trainerId
     }
@@ -73,8 +74,6 @@ function handleClickOfAddPokemonButton(event, trainerObj) {
         li.appendChild(releaseButton)
         releaseButton.dataset.id = pokemonObj.id
         releaseButton.addEventListener('click', handleClickOfReleaseButton)
-        trainerContainer.innerHTML = ''
-        getAllTrainers()
       })
   } else {
     alert("Your team is full! If you want to add a new Pokemon, you must release an old one.")
@@ -90,9 +89,5 @@ function handleClickOfReleaseButton(event) {
 function releasePokemon(pokemonId) {
   fetch(`http://localhost:3000/pokemons/${pokemonId}`, {
     method: "DELETE"
-  }).then(res => res.json())
-    .then(a => {
-      trainerContainer.innerHTML = ''
-      getAllTrainers()
-    })
+  })
 }
