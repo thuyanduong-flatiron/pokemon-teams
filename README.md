@@ -2,7 +2,7 @@
 
 Here you're going to help us keep track of Pokemon trainers at Flatiron School and all of their Pokemon!
 
-![Showing how the application runs from loading, adding Pokemon to a team and also releasing one](/assets/pokemon_teams.gif)
+![Showing how the application runs from loading, adding Pokemon to a team and also releasing one](https://gfycat.com/goldendearboto)
 
 ## Deliverables
 - When a user loads the page, they should see all trainers, with their current team of Pokemon.
@@ -14,7 +14,7 @@ Here you're going to help us keep track of Pokemon trainers at Flatiron School a
 - Navigate to the backend folder by running ```cd pokemon-teams/pokemon-teams-backend```
 - Run ```rake db:migrate``` ```rake db:seed``` ```rails s```
 - Confirm the server is running on ```http://localhost:3000/```
-- Navigate to the base project folder by running ```cd ..```
+- In a different terminal tab, navigate to the base project folder by running ```cd ..```
 - Open the single page application running ```open index.html```
 - Code your solution in src/index.js
 
@@ -125,4 +125,4 @@ DELETE http://localhost:3000/pokemons/:pokemon_id
 ### Bonus
 Only work on this part if you are done with all other deliverables. Throughout their journey, **a Pokemon trainer should only have 6 Pokemon on their team**. Assuming you have your 'Release Pokemon' button working, delete as many Pokemon as needed such that each trainer has six or less Pokemon. Then, implement a feature that prevents trainers from adding a Pokemon if they already have six (maybe use window.alert to let the user know they cannot add a Pokemon). Therefore, if they want to add another Pokemon, they must release one of their Pokemon first.
 
-#### Once you are done, git add, commit, and push your code to your forked repository, Then slack you lead instructor and TCFs the url to your forked repository. 
+#### Once you are done, git add, commit, and push your code to your forked repository, Then slack you lead instructor and TCFs the url to your forked repository.
