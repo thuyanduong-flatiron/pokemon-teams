@@ -29,7 +29,7 @@ function renderTrainer(trainerObj) {
   div.appendChild(addPokemonButton)
   addPokemonButton.innerText = "Add Pokemon"
   addPokemonButton.dataset.id = trainerObj.id
-  addPokemonButton.addEventListener("click", handleClickOfAddPokemonButton)
+  addPokemonButton.addEventListener("click", function() {handleClickOfAddPokemonButton(event, trainerObj)})
 
   let ul = document.createElement('ul')
   ul.id = 'trainer-' + trainerObj.id
@@ -49,30 +49,36 @@ function renderTrainer(trainerObj) {
   })
 }
 
-function handleClickOfAddPokemonButton(event) {
+function handleClickOfAddPokemonButton(event, trainerObj) {
   let trainerId = event.currentTarget.dataset.id
-  let postData = {
-    trainer_id: trainerId
-  }
-  fetch("http://localhost:3000/pokemons", {
-    method: "POST",
-    body: JSON.stringify(postData),
-    headers: {
-      "Content-Type": "application/json"
+  if (trainerObj["pokemons"].length < 6) {
+    let postData = {
+      trainer_id: trainerId
     }
-  }).then(res => res.json())
-    .then(pokemonObj => {
-      let li = document.createElement('li')
-      li.id = 'pokemon-' + pokemonObj.id
-      document.querySelector(`#trainer-${trainerId}`).appendChild(li)
-      let releaseButton = document.createElement('button')
-      releaseButton.classList.add("release")
-      releaseButton.innerText = "Release"
-      li.innerText = `${pokemonObj["nickname"]} (${pokemonObj["species"]})`
-      li.appendChild(releaseButton)
-      releaseButton.dataset.id = pokemonObj.id
-      releaseButton.addEventListener('click', handleClickOfReleaseButton)
-    })
+    fetch("http://localhost:3000/pokemons", {
+      method: "POST",
+      body: JSON.stringify(postData),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => res.json())
+      .then(pokemonObj => {
+        let li = document.createElement('li')
+        li.id = 'pokemon-' + pokemonObj.id
+        document.querySelector(`#trainer-${trainerId}`).appendChild(li)
+        let releaseButton = document.createElement('button')
+        releaseButton.classList.add("release")
+        releaseButton.innerText = "Release"
+        li.innerText = `${pokemonObj["nickname"]} (${pokemonObj["species"]})`
+        li.appendChild(releaseButton)
+        releaseButton.dataset.id = pokemonObj.id
+        releaseButton.addEventListener('click', handleClickOfReleaseButton)
+        trainerContainer.innerHTML = ''
+        getAllTrainers()
+      })
+  } else {
+    alert("Your team is full! If you want to add a new Pokemon, you must release an old one.")
+  }
 }
 
 function handleClickOfReleaseButton(event) {
@@ -84,5 +90,9 @@ function handleClickOfReleaseButton(event) {
 function releasePokemon(pokemonId) {
   fetch(`http://localhost:3000/pokemons/${pokemonId}`, {
     method: "DELETE"
-  })
+  }).then(res => res.json())
+    .then(a => {
+      trainerContainer.innerHTML = ''
+      getAllTrainers()
+    })
 }
