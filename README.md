@@ -2,7 +2,7 @@
 
 Here you're going to help us keep track of Pokemon trainers at Flatiron School and all of their Pokemon!
 
-![Showing how the application runs from loading, adding Pokemon to a team and also releasing one](https://gfycat.com/goldendearboto)
+![Showing how the application runs from loading, adding Pokemon to a team and also releasing one](/assets/pokemon)
 
 ## Deliverables
 - When a user loads the page, they should see all trainers, with their current team of Pokemon.
