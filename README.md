@@ -53,7 +53,7 @@ GET http://localhost:3000/trainers
 ]
 ```
 
-For each trainer, a Trainer Card should be placed within the `<main>` tags. See the example below. Each trainer cards needs to show the trainer's name as well as the name and species of each of their Pokemon.
+For each trainer, a Trainer Card `<div>` should be placed within the `<main>` tags. See the example below. Each trainer cards needs to show the trainer's name as well as the name and species of each of their Pokemon. Additionally, be sure to create an 'Add Pokemon' button for each trainer and a 'Release Pokemon' button for each Pokemon.
 
 ### Suggested HTML
 ```
@@ -98,13 +98,14 @@ Required Body:
 
 ## Step 3 - Adding a Pokemon (FrontEnd)
 
-Once you receive information from the server about the newly created Pokemon, it's time to render it onto the DOM. There are many ways to do this. Remember, the new Pokemon should appear inside the correct trainer card at the bottom of their trainer's list.
+Once you receive information from the server about the newly created Pokemon, it's time to render it onto the DOM. There are many ways to do this. Remember, the new Pokemon should appear inside the correct trainer card.
 
 ## Step 4 - Releasing a Pokemon (FrontEnd)
 
-For releasing Pokemon, this app will use what is called optimistic rendering. This means the DOM will be updated before the changes are added to the database. When a user clicks the 'Release Pokemon' button we will immediately update the DOM. Next, your job is to make a DELETE request to persist the deletion of that Pokemon in the backend database. How does this differ from how we rendered with 'Add Pokemon'? When can you and when can't you use optimistic render?
+For releasing Pokemon, this app will use what is called optimistic rendering. This means the DOM will be updated before the changes are added to the database. When a user clicks the 'Release Pokemon' button, immediately update the DOM by removing that specific Pokemon.
 
 ## Step 5 - Releasing a Pokemon (BackEnd)
+Next, your job is to make a DELETE request to persist the deletion of that Pokemon in the backend database. How does this differ from how we rendered with 'Add Pokemon'? When can you and when can't you use optimistic render?
 
 #### API Docs
 When making a DELETE request, the server will respond with the Pokemon that was deleted.
@@ -122,4 +123,6 @@ DELETE http://localhost:3000/pokemons/:pokemon_id
 ```
 
 ### Bonus
-Only work on this part if you are done with all other deliverables. Throughout their journey, **a Pokemon trainer should only have 6 Pokemon on their team**. Assuming you have your Delete Button working, delete as many Pokemon as needed such that each trainer has six or less Pokemon. Then, implement a feature that prevents trainers from adding a Pokemon if they already have six (maybe use window.alert to let the user know they cannot add a Pokemon). Therefore, if they want to add another Pokemon, they must release one of their Pokemon first.
+Only work on this part if you are done with all other deliverables. Throughout their journey, **a Pokemon trainer should only have 6 Pokemon on their team**. Assuming you have your 'Release Pokemon' button working, delete as many Pokemon as needed such that each trainer has six or less Pokemon. Then, implement a feature that prevents trainers from adding a Pokemon if they already have six (maybe use window.alert to let the user know they cannot add a Pokemon). Therefore, if they want to add another Pokemon, they must release one of their Pokemon first.
+
+#### Once you are done, git add, commit, and push your code to your forked repository, Then slack you lead instructor and TCFs the url to your forked repository. 
